@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ErrorBoundary from 'react-error-boundary';
+import Main from './pages/Main';
+import Signin from './pages/Signin';
+import NotFound from './pages/NotFound';
+
+const ErrorFallbackComponent = ({ error }) => <div>{error.message}</div>;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/signin" component={Signin} />
+          <Route path="/" component={Main} />
+          <Route component={NotFound} />
+        </Switch>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 
