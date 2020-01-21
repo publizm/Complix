@@ -35,6 +35,7 @@
 - react-router-dom
 - axios
 - styled-components
+- polished
 - query-string
 - redux
 - react-redux
