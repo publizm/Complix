@@ -50,23 +50,29 @@ const SigninForm = () => {
     const password = passwordRef.current.value;
 
     try {
-      const response = await axios.post('https://api.marktube.tv/v1/me', {
+      const response = await axios.post('http://localhost:8000/auth/login', {
         email,
         password,
       });
-      const { token } = response.data;
 
-      localStorage.setItem('token', token);
+      // console.log(response);
+      const { access_token } = response.data;
+
+      localStorage.setItem('token', access_token);
       history.push('/');
+      // console.log(access_token);
     } catch (error) {
-      if (error.response.data.error === 'USER_NOT_EXIST') {
-        setFeedComment('해당하는 유저가 없습니다.');
-      } else if (error.response.data.error === 'PASSWORD_NOT_MATCH') {
-        setFeedComment('비밀번호가 틀렸습니다.');
-      } else {
-        setFeedComment('로그인에 문제가 있습니다.');
-      }
+      // if (error.response.data.error === 'USER_NOT_EXIST') {
+      //   setFeedComment('해당하는 유저가 없습니다.');
+      // } else if (error.response.data.error === 'PASSWORD_NOT_MATCH') {
+      //   setFeedComment('비밀번호가 틀렸습니다.');
+      // } else {
+      //   setFeedComment('로그인에 문제가 있습니다.');
+      // }
+      setFeedComment('Incorrect email or password');
       setFeed(true);
+
+      // console.log(error);
     }
   };
 
