@@ -40,6 +40,8 @@
 - redux
 - react-redux
 - react-error-boundary
+- react-horizontal-scrolling-menu
+- uuid
 
 ### devDependencies
 - eslint-config-prettier
