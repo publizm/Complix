@@ -1,11 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import axios from 'axios';
-import qs from 'query-string';
 import uuid from 'uuid';
 import ScrollItem from 'react-horizontal-scrolling-menu';
 import VisualArea from '../components/VisualArea';
@@ -199,15 +193,25 @@ function Main(props) {
   };
 
   const getSearchList = (list, query) => {
-    // console.log('in main', list);
     console.log(query);
     setQuery(query);
     setSearchList(list);
   };
 
+  const disabledOuterWheel = e => {
+    // window의 이벤트를 체크해서 해당 영역에서 스크롤시 스크롤을 막는 것을 제어해보자
+    e.stopPropagation();
+  };
+
+  // TODO:
+  // const { genre } = qs.parse(props.location.search);
+  // /?genre=
+  // 쿼리에 따라 분기처리
+  // 라우터가 있다고하여 컴포넌트를 나눌 필요가 없음
   return (
     <>
       <Header onSearch={getSearchList} query={query} />
+
       {searchList ? (
         <section className="search-list-section">
           {searchList.map(item => {
@@ -235,8 +239,7 @@ function Main(props) {
               <p className="overview">{visual.overview}</p>
             </VisualArea>
           )}
-
-          <MediaSection title="New Movies">
+          <MediaSection title="New Movies" onWheel={disabledOuterWheel}>
             {newMovies && (
               <>
                 <ScrollItem
@@ -250,9 +253,6 @@ function Main(props) {
                     />
                   ))}
                   alignCenter={false}
-                  // onWheel={event => {
-                  //   event.nativeEvent.stopImmediatePropagtion();
-                  // }}
                 />
                 {selectedMovie && (
                   <ItemDetail
