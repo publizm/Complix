@@ -16,9 +16,9 @@ const MediaSectionBlock = styled.section`
   }
 `;
 
-const MediaSection = ({ title, children }) => {
+const MediaSection = ({ title, children, onWheel }) => {
   return (
-    <MediaSectionBlock>
+    <MediaSectionBlock onWheel={onWheel}>
       <h2>{title}</h2>
       {children}
     </MediaSectionBlock>

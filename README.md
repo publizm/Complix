@@ -42,6 +42,7 @@
 - react-error-boundary
 - react-horizontal-scrolling-menu
 - uuid
+- loadsh (debounce)
 
 ### devDependencies
 - eslint-config-prettier

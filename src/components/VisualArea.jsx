@@ -38,8 +38,9 @@ const VisualArea = styled.section`
   .overview {
     position: relative;
     z-index: 1;
+    max-width: 600px;
     margin: 30px 0 0;
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 `;
 

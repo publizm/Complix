@@ -38,7 +38,7 @@ const colors = {
   gray: '#a6a6a6',
   green: '#04d9b2',
   blue: '#0388a6',
-  red: '#f20f4b',
+  red: '#e50914',
   pink: '#f24162',
 };
 

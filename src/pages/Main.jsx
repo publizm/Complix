@@ -1,16 +1,11 @@
-import React, {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import axios from 'axios';
-import qs from 'query-string';
 import uuid from 'uuid';
 import ScrollItem from 'react-horizontal-scrolling-menu';
 import VisualArea from '../components/VisualArea';
 import MediaSection from '../components/MediaSection';
 import ItemDetail from '../components/ItemDetail';
+import Header from '../components/Header';
 
 function Main(props) {
   const [visual, setVisual] = useState({});
@@ -24,6 +19,8 @@ function Main(props) {
   const [selectedTrending, setSelectedTrending] = useState(null);
   const [selectedPopularTv, setSelectedPopularTv] = useState(null);
   const [selectedPopularMovie, setSelectedPopularMovie] = useState(null);
+  const [searchList, setSearchList] = useState(null);
+  const [query, setQuery] = useState('');
 
   useLayoutEffect(() => {
     const getNewMovieList = async () => {
@@ -195,195 +192,225 @@ function Main(props) {
     setSelectedPopularMovie(null);
   };
 
+  const getSearchList = (list, query) => {
+    setQuery(query);
+    setSearchList(list);
+  };
+
+  const disabledOuterWheel = e => {
+    e.stopPropagation();
+  };
+
   return (
-    <div>
-      {visual && visual.backdrop_path && (
-        <VisualArea visual={visual.backdrop_path}>
-          <p className="title">{visual.title || visual.original_name}</p>
-          <p className="overview">{visual.overview}</p>
-        </VisualArea>
+    <>
+      <Header onSearch={getSearchList} query={query} />
+
+      {searchList ? (
+        <section className="search-list-section">
+          {searchList.map(item => {
+            return (
+              <div className="search-list" key={uuid.v4()}>
+                <img
+                  src={
+                    item.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                      : '/noimage.gif'
+                  }
+                  alt="poster"
+                />
+                <p>{item.title}</p>
+                <p>{item.release_date}</p>
+              </div>
+            );
+          })}
+        </section>
+      ) : (
+        <div className="container">
+          {visual && visual.backdrop_path && (
+            <VisualArea visual={visual.backdrop_path}>
+              <p className="title">{visual.title || visual.original_name}</p>
+              <p className="overview">{visual.overview}</p>
+            </VisualArea>
+          )}
+          <MediaSection title="New Movies" onWheel={disabledOuterWheel}>
+            {newMovies && (
+              <>
+                <ScrollItem
+                  data={newMovies.map(movie => (
+                    <MediaItem
+                      key={uuid.v4()}
+                      id={movie.id}
+                      title={movie.title}
+                      posterUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                      category="newMovies"
+                    />
+                  ))}
+                  alignCenter={false}
+                />
+                {selectedMovie && (
+                  <ItemDetail
+                    title={
+                      selectedMovie.original_name ||
+                      selectedMovie.original_title ||
+                      selectedMovie.title
+                    }
+                    average={selectedMovie.vote_average}
+                    release={selectedMovie.release_date}
+                    overview={selectedMovie.overview}
+                    bgUrl={selectedMovie.backdrop_path}
+                    onReset={onReset}
+                  />
+                )}
+              </>
+            )}
+          </MediaSection>
+
+          <MediaSection title="New TV Programs">
+            {newTv && (
+              <>
+                <ScrollItem
+                  data={newTv.map(tv => (
+                    <MediaItem
+                      key={uuid.v4()}
+                      id={tv.id}
+                      title={tv.title}
+                      posterUrl={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
+                      category="newTv"
+                    />
+                  ))}
+                  alignCenter={false}
+                  // onWheel={event => {
+                  //   event.nativeEvent.stopImmediatePropagtion();
+                  // }}
+                />
+                {selectedTv && (
+                  <ItemDetail
+                    title={
+                      selectedTv.original_name ||
+                      selectedTv.original_title ||
+                      selectedTv.title
+                    }
+                    average={selectedTv.vote_average}
+                    release={selectedTv.release_date}
+                    overview={selectedTv.overview}
+                    bgUrl={selectedTv.backdrop_path}
+                    onReset={onReset}
+                  />
+                )}
+              </>
+            )}
+          </MediaSection>
+
+          <MediaSection title="Trending">
+            {trending && (
+              <>
+                <ScrollItem
+                  data={trending.map(t => (
+                    <MediaItem
+                      key={uuid.v4()}
+                      id={t.id}
+                      title={t.title}
+                      posterUrl={`https://image.tmdb.org/t/p/w500/${t.poster_path}`}
+                      category="trending"
+                    />
+                  ))}
+                  alignCenter={false}
+                  // onWheel={event => {
+                  //   event.nativeEvent.stopImmediatePropagtion();
+                  // }}
+                />
+                {selectedTrending && (
+                  <ItemDetail
+                    title={
+                      selectedTrending.original_name ||
+                      selectedTrending.original_title ||
+                      selectedTrending.title
+                    }
+                    average={selectedTrending.vote_average}
+                    release={selectedTrending.release_date}
+                    overview={selectedTrending.overview}
+                    bgUrl={selectedTrending.backdrop_path}
+                    onReset={onReset}
+                  />
+                )}
+              </>
+            )}
+          </MediaSection>
+
+          <MediaSection title="Popular TV Programs">
+            {popularTv && (
+              <>
+                <ScrollItem
+                  data={popularTv.map(tv => (
+                    <MediaItem
+                      key={uuid.v4()}
+                      id={tv.id}
+                      title={tv.title}
+                      posterUrl={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
+                      category={'popularTv'}
+                    />
+                  ))}
+                  alignCenter={false}
+                  // onWheel={event => {
+                  //   event.nativeEvent.stopImmediatePropagtion();
+                  // }}
+                />
+                {selectedPopularTv && (
+                  <ItemDetail
+                    title={
+                      selectedPopularTv.original_name ||
+                      selectedPopularTv.original_title ||
+                      selectedPopularTv.title
+                    }
+                    average={selectedPopularTv.vote_average}
+                    release={selectedPopularTv.release_date}
+                    overview={selectedPopularTv.overview}
+                    bgUrl={selectedPopularTv.backdrop_path}
+                    onReset={onReset}
+                  />
+                )}
+              </>
+            )}
+          </MediaSection>
+
+          <MediaSection title="Popular Movies">
+            {popularMovie && (
+              <>
+                <ScrollItem
+                  data={popularMovie.map(movie => (
+                    <MediaItem
+                      key={uuid.v4()}
+                      id={movie.id}
+                      title={movie.title}
+                      posterUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                      category={'popularMovie'}
+                    />
+                  ))}
+                  alignCenter={false}
+                  // onWheel={event => {
+                  //   event.nativeEvent.stopImmediatePropagtion();
+                  // }}
+                />
+                {selectedPopularMovie && (
+                  <ItemDetail
+                    title={
+                      selectedPopularMovie.original_name ||
+                      selectedPopularMovie.original_title ||
+                      selectedPopularMovie.title
+                    }
+                    average={selectedPopularMovie.vote_average}
+                    release={selectedPopularMovie.release_date}
+                    overview={selectedPopularMovie.overview}
+                    bgUrl={selectedPopularMovie.backdrop_path}
+                    onReset={onReset}
+                  />
+                )}
+              </>
+            )}
+          </MediaSection>
+        </div>
       )}
-
-      <MediaSection title="New Movies">
-        {newMovies && (
-          <>
-            <ScrollItem
-              data={newMovies.map(movie => (
-                <MediaItem
-                  key={uuid.v4()}
-                  id={movie.id}
-                  title={movie.title}
-                  posterUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  category="newMovies"
-                />
-              ))}
-              alignCenter={false}
-              // onWheel={event => {
-              //   event.nativeEvent.stopImmediatePropagtion();
-              // }}
-            />
-            {selectedMovie && (
-              <ItemDetail
-                title={
-                  selectedMovie.original_name ||
-                  selectedMovie.original_title ||
-                  selectedMovie.title
-                }
-                average={selectedMovie.vote_average}
-                release={selectedMovie.release_date}
-                overview={selectedMovie.overview}
-                bgUrl={selectedMovie.backdrop_path}
-                onReset={onReset}
-              />
-            )}
-          </>
-        )}
-      </MediaSection>
-
-      <MediaSection title="New TV Programs">
-        {newTv && (
-          <>
-            <ScrollItem
-              data={newTv.map(tv => (
-                <MediaItem
-                  key={uuid.v4()}
-                  id={tv.id}
-                  title={tv.title}
-                  posterUrl={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
-                  category="newTv"
-                />
-              ))}
-              alignCenter={false}
-              // onWheel={event => {
-              //   event.nativeEvent.stopImmediatePropagtion();
-              // }}
-            />
-            {selectedTv && (
-              <ItemDetail
-                title={
-                  selectedTv.original_name ||
-                  selectedTv.original_title ||
-                  selectedTv.title
-                }
-                average={selectedTv.vote_average}
-                release={selectedTv.release_date}
-                overview={selectedTv.overview}
-                bgUrl={selectedTv.backdrop_path}
-                onReset={onReset}
-              />
-            )}
-          </>
-        )}
-      </MediaSection>
-
-      <MediaSection title="Trending">
-        {trending && (
-          <>
-            <ScrollItem
-              data={trending.map(t => (
-                <MediaItem
-                  key={uuid.v4()}
-                  id={t.id}
-                  title={t.title}
-                  posterUrl={`https://image.tmdb.org/t/p/w500/${t.poster_path}`}
-                  category="trending"
-                />
-              ))}
-              alignCenter={false}
-              // onWheel={event => {
-              //   event.nativeEvent.stopImmediatePropagtion();
-              // }}
-            />
-            {selectedTrending && (
-              <ItemDetail
-                title={
-                  selectedTrending.original_name ||
-                  selectedTrending.original_title ||
-                  selectedTrending.title
-                }
-                average={selectedTrending.vote_average}
-                release={selectedTrending.release_date}
-                overview={selectedTrending.overview}
-                bgUrl={selectedTrending.backdrop_path}
-                onReset={onReset}
-              />
-            )}
-          </>
-        )}
-      </MediaSection>
-
-      <MediaSection title="Popular TV Programs">
-        {popularTv && (
-          <>
-            <ScrollItem
-              data={popularTv.map(tv => (
-                <MediaItem
-                  key={uuid.v4()}
-                  id={tv.id}
-                  title={tv.title}
-                  posterUrl={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
-                  category={'popularTv'}
-                />
-              ))}
-              alignCenter={false}
-              // onWheel={event => {
-              //   event.nativeEvent.stopImmediatePropagtion();
-              // }}
-            />
-            {selectedPopularTv && (
-              <ItemDetail
-                title={
-                  selectedPopularTv.original_name ||
-                  selectedPopularTv.original_title ||
-                  selectedPopularTv.title
-                }
-                average={selectedPopularTv.vote_average}
-                release={selectedPopularTv.release_date}
-                overview={selectedPopularTv.overview}
-                bgUrl={selectedPopularTv.backdrop_path}
-                onReset={onReset}
-              />
-            )}
-          </>
-        )}
-      </MediaSection>
-
-      <MediaSection title="Popular Movies">
-        {popularMovie && (
-          <>
-            <ScrollItem
-              data={popularMovie.map(movie => (
-                <MediaItem
-                  key={uuid.v4()}
-                  id={movie.id}
-                  title={movie.title}
-                  posterUrl={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  category={'popularMovie'}
-                />
-              ))}
-              alignCenter={false}
-              // onWheel={event => {
-              //   event.nativeEvent.stopImmediatePropagtion();
-              // }}
-            />
-            {selectedPopularMovie && (
-              <ItemDetail
-                title={
-                  selectedPopularMovie.original_name ||
-                  selectedPopularMovie.original_title ||
-                  selectedPopularMovie.title
-                }
-                average={selectedPopularMovie.vote_average}
-                release={selectedPopularMovie.release_date}
-                overview={selectedPopularMovie.overview}
-                bgUrl={selectedPopularMovie.backdrop_path}
-                onReset={onReset}
-              />
-            )}
-          </>
-        )}
-      </MediaSection>
-    </div>
+    </>
   );
 }
 
