@@ -9,8 +9,7 @@
 5. styled-components 모듈을 이용한 컴포넌트 스타일링
 6. axios 모듈을 이용한 비동기 통신 및 후속 처리
 
-### 구현 기능 
-**Must**
+### 구현 기능 (Must)
 - 로그인 페이지 (로컬 스토리지의 token 값을 활용)
 - 메인 페이지 (신규 TV & 영화, 인기 TV & 영화 등 컨텐츠 정보 제공)
   - 컨텐츠 선택시 해당 컨텐츠 상세 정보 표시
@@ -36,10 +35,13 @@
 - react-router-dom
 - axios
 - styled-components
+- polished
 - query-string
 - redux
 - react-redux
 - react-error-boundary
+- react-horizontal-scrolling-menu
+- uuid
 
 ### devDependencies
 - eslint-config-prettier
