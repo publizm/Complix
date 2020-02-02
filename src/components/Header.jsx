@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import media from '../libs/MediaQuery';
@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function Header(props) {
-  // const [data, setData] = useState(null);
   const history = useHistory();
 
   const Logo = styled.h1`
@@ -42,7 +41,7 @@ function Header(props) {
 
   const StyledNav = styled.nav`
     display: flex;
-    justtify-content: space-around;
+    justify-content: space-around;
     align-items: center;
 
     ul {
@@ -67,15 +66,9 @@ function Header(props) {
     }
   `;
 
-  // const handleOnChange = ({ target }) => {
-  //   console.log(target.value);
-  //   setValue(target.value);
-  // };
-
   const handleOnChange = debounce(async query => {
     if (!query) return;
     try {
-      // https://api.themoviedb.org/3/search/multi?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
       const { data } = await axios.get(
         'https://api.themoviedb.org/3/search/multi',
         {
@@ -85,8 +78,6 @@ function Header(props) {
           },
         },
       );
-      console.log(data.results);
-      // setData(data.results);
       props.onSearch(data.results, query);
     } catch (err) {
       console.log(err);
