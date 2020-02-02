@@ -193,21 +193,14 @@ function Main(props) {
   };
 
   const getSearchList = (list, query) => {
-    console.log(query);
     setQuery(query);
     setSearchList(list);
   };
 
   const disabledOuterWheel = e => {
-    // window의 이벤트를 체크해서 해당 영역에서 스크롤시 스크롤을 막는 것을 제어해보자
     e.stopPropagation();
   };
 
-  // TODO:
-  // const { genre } = qs.parse(props.location.search);
-  // /?genre=
-  // 쿼리에 따라 분기처리
-  // 라우터가 있다고하여 컴포넌트를 나눌 필요가 없음
   return (
     <>
       <Header onSearch={getSearchList} query={query} />
