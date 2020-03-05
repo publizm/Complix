@@ -47,7 +47,7 @@ const Feed = styled.div`
     `}
 `;
 
-const Feedback = ({ visible, children, onCloseFeed }) => {
+const Feedback = ({ visible }) => {
   const [localVisible, setLocalVisible] = useState(visible);
 
   useEffect(() => {
@@ -55,7 +55,6 @@ const Feedback = ({ visible, children, onCloseFeed }) => {
 
     if (localVisible) {
       hide = setTimeout(() => {
-        onCloseFeed();
         clearTimeout(hide);
       }, 1800);
     }
@@ -65,11 +64,11 @@ const Feedback = ({ visible, children, onCloseFeed }) => {
     return () => {
       clearTimeout(hide);
     };
-  }, [visible, localVisible, onCloseFeed]);
+  }, [visible, localVisible]);
 
   if (!localVisible) return null;
 
-  return <Feed>{children}</Feed>;
+  return <Feed>아이디와 비밀번호를 확인해주세요.</Feed>;
 };
 
 export default Feedback;

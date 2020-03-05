@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import Inputs from '../Common/Input';
 import Buttons from '../Common/Button';
 import A11yTitle from '../Common/A11yTitle';
@@ -36,37 +34,16 @@ const ButtonBox = styled.div`
   text-align: center;
 `;
 
-const SigninForm = () => {
+const SigninForm = ({ signIn, feedVisible }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
-  const [feed, setFeed] = useState(false);
-  const [feedComment, setFeedComment] = useState('');
-  const history = useHistory();
 
   const click = async e => {
     e.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
-    try {
-      const response = await axios.post('http://localhost:8000/auth/login', {
-        email,
-        password,
-      });
-
-      const { access_token } = response.data;
-
-      localStorage.setItem('token', access_token);
-      history.push('/');
-    } catch (error) {
-      setFeedComment('잘못된 이메일 주소 또는 패스워드입니다.');
-      setFeed(true);
-    }
-  };
-
-  const closeFeed = () => {
-    setFeed(false);
+    signIn({ email, password });
   };
 
   return (
@@ -106,9 +83,7 @@ const SigninForm = () => {
           </Buttons>
         </ButtonBox>
       </Form>
-      <Feedback visible={feed} onCloseFeed={closeFeed}>
-        {feedComment}
-      </Feedback>
+      <Feedback visible={feedVisible} />
     </FormArea>
   );
 };

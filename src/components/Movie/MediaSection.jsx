@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import MediaSlider from './MediaSlider';
+import ItemDetail from './ItemDetail';
 
 const MediaSectionBlock = styled.section`
+  overflow: hidden;
   margin: 30px 0 0;
-  padding: 0 0 0 50px;
+  font-size: 3rem;
+  color: #fff !important;
 
   h2 {
     margin: 0 0 30px;
@@ -16,11 +20,25 @@ const MediaSectionBlock = styled.section`
   }
 `;
 
-const MediaSection = ({ title, children, onWheel }) => {
+const MediaSection = ({ title, mediaItems, selectCategory }) => {
   return (
-    <MediaSectionBlock onWheel={onWheel}>
+    <MediaSectionBlock>
       <h2>{title}</h2>
-      {children}
+      <MediaSlider mediaItems={mediaItems} />
+      {title === selectCategory && (
+        <ItemDetail
+        // title={
+        //   selectedPopularMovie.original_name ||
+        //   selectedPopularMovie.original_title ||
+        //   selectedPopularMovie.title
+        // }
+        // average={selectedPopularMovie.vote_average}
+        // release={selectedPopularMovie.release_date}
+        // overview={selectedPopularMovie.overview}
+        // bgUrl={selectedPopularMovie.backdrop_path}
+        // onReset={onReset}
+        />
+      )}
     </MediaSectionBlock>
   );
 };

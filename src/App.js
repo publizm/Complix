@@ -1,24 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import ErrorBoundary from 'react-error-boundary';
+import { ConnectedRouter } from 'connected-react-router';
 import Main from './pages/Main';
 import Signin from './pages/Signin';
 import NotFound from './pages/NotFound';
+
 import UnauthedRoute from './components/Auth/UnauthedRoute';
 import AuthedRoute from './components/Auth/AuthedRoute';
+import { history } from './redux/create';
 
 const ErrorFallbackComponent = ({ error }) => <div>{error.message}</div>;
 
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Switch>
           <UnauthedRoute path="/signin" component={Signin} />
           <AuthedRoute path="/" component={Main} />
           <Route component={NotFound} />
         </Switch>
-      </BrowserRouter>
+      </ConnectedRouter>
     </ErrorBoundary>
   );
 }

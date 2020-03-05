@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from '../libs/MediaQuery';
-import SigninForm from '../components/Signin/SigninForm';
+import SigninFormContainer from '../containers/SigninFormContainer';
 import A11yTitle from '../components/Common/A11yTitle';
 
 const SignInWrapper = styled.section`
@@ -67,7 +67,7 @@ const Signin = () => {
       </Logo>
       <A11yTitle>로그인 영역</A11yTitle>
       <SigninArea>
-        <SigninForm />
+        <SigninFormContainer />
       </SigninArea>
     </SignInWrapper>
   );

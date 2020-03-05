@@ -1,0 +1,22 @@
+@import "~slick-carousel/slick/slick.css";
+
+.slick-slide {
+	width: 300px;
+	margin: 0 0 0 10px;
+}
+
+.slick-slide:first-child {
+	margin: 0;
+}
+
+@media all and (min-width: 769px) and (max-width: 1024px) {
+	.slick-slide {
+		width: 280px;
+    margin: 0 0 0 20px;
+	}
+}
+@media all and (max-width: 768px) {
+	.slick-slide {
+		width: 200px;
+	}
+}
