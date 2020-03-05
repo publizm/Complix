@@ -8,7 +8,7 @@ const UnauthedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => {
         if (loggedIn) {
-          alert('User Already Logged-in');
+          alert('이미 로그인되어 있습니다.');
           return (
             <Redirect to={{ pathname: '/', state: { from: props.location } }} />
           );

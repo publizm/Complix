@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Inputs from './Input';
-import Buttons from '../components/Button';
-import A11yTitle from '../components/A11yTitle';
-import Feedback from '../components/Feedback';
+import Inputs from '../Common/Input';
+import Buttons from '../Common/Button';
+import A11yTitle from '../Common/A11yTitle';
+import Feedback from './Feedback';
 
 const FormArea = styled.div`
   position: relative;
@@ -55,24 +55,13 @@ const SigninForm = () => {
         password,
       });
 
-      // console.log(response);
       const { access_token } = response.data;
 
       localStorage.setItem('token', access_token);
       history.push('/');
-      // console.log(access_token);
     } catch (error) {
-      // if (error.response.data.error === 'USER_NOT_EXIST') {
-      //   setFeedComment('해당하는 유저가 없습니다.');
-      // } else if (error.response.data.error === 'PASSWORD_NOT_MATCH') {
-      //   setFeedComment('비밀번호가 틀렸습니다.');
-      // } else {
-      //   setFeedComment('로그인에 문제가 있습니다.');
-      // }
-      setFeedComment('Incorrect email or password');
+      setFeedComment('잘못된 이메일 주소 또는 패스워드입니다.');
       setFeed(true);
-
-      // console.log(error);
     }
   };
 
@@ -93,6 +82,7 @@ const SigninForm = () => {
               id="email"
               placeHolder="Enter Your E-mail"
               essential
+              defaultValue="test@test.test"
             >
               E-MAIL
             </Inputs>
@@ -104,6 +94,7 @@ const SigninForm = () => {
               id="password"
               placeHolder="Enter Your Password"
               essential
+              defaultValue="test"
             >
               PASSWORD
             </Inputs>

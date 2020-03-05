@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from '../libs/MediaQuery';
-import SigninForm from '../components/SigninForm';
-import A11yTitle from '../components/A11yTitle';
+import SigninForm from '../components/Signin/SigninForm';
+import A11yTitle from '../components/Common/A11yTitle';
 
 const SignInWrapper = styled.section`
   display: flex;
@@ -11,6 +11,7 @@ const SignInWrapper = styled.section`
   overflow: hidden;
   position: relative;
   min-height: 100vh;
+  padding: 20px;
   background: url('/login_bg.jpg') center center no-repeat;
   background-size: cover;
   font-size: 20px;
@@ -29,26 +30,28 @@ const SignInWrapper = styled.section`
 const Logo = styled.h1`
   position: fixed;
   top: 20px;
-  left: 50px;
+  left: 20px;
   z-index: 1;
-  width: 180px;
+  width: 155px;
 
   img {
     width: 100%;
   }
 
+  ${media.tablet`
+    width: 140px;
+  `}
+
   ${media.mobile`
-    left: 40px;
-    width: 130px;
+    width: 120px;
   `}
 `;
 
 const SigninArea = styled.div`
-  width: 65%;
-  min-width: 285px;
+  width: 100%;
 
   ${media.tablet`
-    width: 45%;
+    width: 60%;
   `}
 
   ${media.desktop`

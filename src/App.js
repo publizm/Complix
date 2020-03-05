@@ -4,8 +4,8 @@ import ErrorBoundary from 'react-error-boundary';
 import Main from './pages/Main';
 import Signin from './pages/Signin';
 import NotFound from './pages/NotFound';
-import UnauthedRoute from './components/UnauthedRoute';
-import AuthedRoute from './components/AuthedRoute';
+import UnauthedRoute from './components/Auth/UnauthedRoute';
+import AuthedRoute from './components/Auth/AuthedRoute';
 
 const ErrorFallbackComponent = ({ error }) => <div>{error.message}</div>;
 

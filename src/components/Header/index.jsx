@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import media from '../libs/MediaQuery';
-import Button from '../components/Button';
+import media from '../../libs/MediaQuery';
+import Button from '../Common/Button';
 import { debounce } from 'lodash';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -116,7 +116,7 @@ function Header(props) {
             history.push('/signin');
           }}
         >
-          Log out
+          Signout
         </Button>
       </div>
     </StyledHeader>

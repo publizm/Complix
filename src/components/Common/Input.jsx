@@ -36,7 +36,7 @@ const Input = styled.input`
 `;
 
 const Inputs = React.forwardRef(
-  ({ type, id, essential, children, placeHolder }, ref) => {
+  ({ type, id, essential, children, placeHolder, defaultValue }, ref) => {
     const [active, setActive] = useState(false);
 
     const valueCheck = () => {
@@ -58,6 +58,7 @@ const Inputs = React.forwardRef(
           onBlur={valueCheck}
           onFocus={() => setActive(true)}
           active={active}
+          defaultValue={defaultValue}
         />
       </>
     );
