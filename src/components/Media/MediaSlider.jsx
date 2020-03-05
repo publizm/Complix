@@ -29,7 +29,7 @@ const settings = {
   ],
 };
 
-const MediaSlider = ({ mediaItems }) => {
+const MediaSlider = React.memo(({ mediaItems, category }) => {
   return (
     <Slider {...settings}>
       {mediaItems &&
@@ -39,11 +39,11 @@ const MediaSlider = ({ mediaItems }) => {
             id={media.id}
             title={media.title}
             posterUrl={`https://image.tmdb.org/t/p/w500/${media.poster_path}`}
-            category={'popularMovie'}
+            category={category}
           />
         ))}
     </Slider>
   );
-};
+});
 
 export default MediaSlider;

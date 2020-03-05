@@ -20,11 +20,11 @@ const MediaSectionBlock = styled.section`
   }
 `;
 
-const MediaSection = ({ title, mediaItems, selectCategory }) => {
+const MediaSection = ({ title, mediaItems, category, selectCategory }) => {
   return (
     <MediaSectionBlock>
       <h2>{title}</h2>
-      <MediaSlider mediaItems={mediaItems} />
+      <MediaSlider mediaItems={mediaItems} category={category} />
       {title === selectCategory && (
         <ItemDetail
         // title={

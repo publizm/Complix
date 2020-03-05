@@ -1,5 +1,33 @@
 @import "~slick-carousel/slick/slick.css";
 
+.slick-slider {
+	position: relative;
+	height: 450px;
+}
+
+.slick-slider .slick-prev, .slick-slider .slick-next {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	width: 3vw;
+	border: none;
+	box-shadow: 0 0 20px 20px rgba(0,0,0,.7);
+	font-size: 0;
+}
+
+.slick-slider .slick-prev {
+	left: 0;
+	background: rgba(0,0,0,.7) url('/arr-left-white-36x70.png') center center no-repeat;
+	background-size: 25px auto;
+}
+
+.slick-slider .slick-next {
+	right: 0;
+	background: rgba(0,0,0,.7) url('/arr-right-white-36x70.png') center center no-repeat;
+	background-size: 25px auto;
+}
+
 .slick-slide {
 	width: 300px;
 	margin: 0 0 0 10px;
@@ -10,12 +38,28 @@
 }
 
 @media all and (min-width: 769px) and (max-width: 1024px) {
+	.slick-slider {
+		height: 420px;
+	}
+
+	.slick-slider .slick-prev, .slick-slider .slick-next {
+		width: 7vw;
+	}
+
 	.slick-slide {
 		width: 280px;
     margin: 0 0 0 20px;
 	}
 }
 @media all and (max-width: 768px) {
+	.slick-slider {
+		height: 300px;
+	}
+
+	.slick-slider .slick-prev, .slick-slider .slick-next {
+		width: 7vw;
+	}
+
 	.slick-slide {
 		width: 200px;
 	}

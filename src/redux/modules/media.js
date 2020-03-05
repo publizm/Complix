@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { select, put, call, takeLatest } from 'redux-saga/effects';
 import { createAction, createActions, handleActions } from 'redux-actions';
 import MediaService from '../../service/MediaService';
 
@@ -109,8 +109,29 @@ function* getMainMedia() {
   yield call(fetchMedia);
 }
 
+export const selectMediaSaga = createAction('SELECT_MEDIA_SAGA');
+
+function* selectMedia({ payload }) {
+  const prevSelectId = yield select(state => state.media.selectId);
+  const prevSelectCategory = yield select(state => state.media.selectCategory);
+  const { selectId, selectCategory } = payload;
+
+  try {
+    yield put(pending());
+
+    if (prevSelectId === selectId && prevSelectCategory === selectCategory) {
+      yield put(success({ selectId: null, selectCategory: null }));
+    } else {
+      yield put(success({ ...payload }));
+    }
+  } catch (error) {
+    yield put(fail(error));
+  }
+}
+
 export function* mediaSaga() {
   yield takeLatest('GET_MAIN_MEDIA_SAGA', getMainMedia);
+  yield takeLatest('SELECT_MEDIA_SAGA', selectMedia);
 }
 
 export default media;

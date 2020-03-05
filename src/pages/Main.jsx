@@ -84,11 +84,31 @@ const Main = ({
             <p className="overview">{visual.overview}</p>
           </VisualArea>
         )}
-        <MediaSection title="New Movies" mediaItems={newMovie} />
-        <MediaSection title="New TV Programs" mediaItems={newTv} />
-        <MediaSection title="Trending" mediaItems={trending} />
-        <MediaSection title="Popular Movies" mediaItems={popularMovie} />
-        <MediaSection title="Popular TV Programs" mediaItems={popularTv} />
+        <MediaSection
+          title="New Movies"
+          category="newMovie"
+          mediaItems={newMovie}
+        />
+        <MediaSection
+          title="New TV Programs"
+          category="newTv"
+          mediaItems={newTv}
+        />
+        <MediaSection
+          title="Trending"
+          category="trending"
+          mediaItems={trending}
+        />
+        <MediaSection
+          title="Popular Movies"
+          category="popularMovie"
+          mediaItems={popularMovie}
+        />
+        <MediaSection
+          title="Popular TV Programs"
+          category="popularTv"
+          mediaItems={popularTv}
+        />
       </div>
     </>
   );

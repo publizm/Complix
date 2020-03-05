@@ -1,15 +1,76 @@
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useCallback, useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import './slider.css';
+import { selectMediaSaga } from '../../redux/modules/media';
 
 const Item = styled.div`
+  overflow: hidden;
+  position: relative;
+  border: 2px solid transparent;
   img {
     width: 100%;
   }
-`;
+  p {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    font-size: 1.6rem;
+    background: rgba(0, 0, 0, 0.7);
+    transform: translateY(100%);
+    transition: all 0.3s;
+  }
 
-const MediaItem = ({ posterUrl, id, category }) => {
+  ${props =>
+    props.isOver
+      ? css`
+          p {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        `
+      : css`
+          p {
+            opacity: 0;
+          }
+        `}
+
+  ${props =>
+    props.isSelect
+      ? css`
+          border-color: red;
+        `
+      : css`
+          border-color: transparent;
+        `}
+`;
+const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
+  const seletedId = useSelector(state => state.media.selectId);
+  const dispatch = useDispatch();
+  const [isOver, setIsOver] = useState(false);
+  const [isSelect, setIsSelect] = useState(false);
+
+  const onHover = useCallback(() => {
+    setIsOver(true);
+  }, []);
+
+  const offHover = useCallback(() => {
+    setIsOver(false);
+  }, []);
+
+  useEffect(() => {
+    if (seletedId === id) setIsSelect(true);
+    else setIsSelect(false);
+  }, [id, seletedId]);
+
   const onSelect = useCallback(() => {
+    console.log(category);
+    dispatch(selectMediaSaga({ selectId: id, selectCategory: category }));
+    setIsSelect(prev => !prev);
     // if (category === 'newMovies') {
     //   const [_selectedMovie] = newMovies.filter(movie => movie.id === id);
     //   setSelectedTv(null);
@@ -54,13 +115,20 @@ const MediaItem = ({ posterUrl, id, category }) => {
     //   setSelectedPopularTv(null);
     //   setSelectedPopularMovie(_selectedPopularMovie);
     // }
-  }, []);
+  }, [category, dispatch, id]);
 
   return (
-    <Item onClick={onSelect}>
+    <Item
+      onClick={onSelect}
+      isOver={isOver}
+      isSelect={isSelect}
+      onMouseOver={onHover}
+      onMouseLeave={offHover}
+    >
       <img src={posterUrl} alt="poster" />
+      <p>{title}</p>
     </Item>
   );
-};
+});
 
 export default MediaItem;
