@@ -74,7 +74,7 @@ function Main(props) {
           'https://api.themoviedb.org/3/movie/now_playing',
           {
             params: {
-              api_key: process.env.REACT_APP_API_TOKEN,
+              api_key: process.env.REACT_APP_MOVIE_API_KEY,
               language: 'en-US',
               page: 1,
             },
@@ -93,7 +93,7 @@ function Main(props) {
           'https://api.themoviedb.org/3/tv/on_the_air',
           {
             params: {
-              api_key: process.env.REACT_APP_API_TOKEN,
+              api_key: process.env.REACT_APP_MOVIE_API_KEY,
               language: 'en-US',
               page: 1,
             },
@@ -111,7 +111,7 @@ function Main(props) {
           'https://api.themoviedb.org/3/trending/all/week',
           {
             params: {
-              api_key: process.env.REACT_APP_API_TOKEN,
+              api_key: process.env.REACT_APP_MOVIE_API_KEY,
             },
           },
         );
@@ -127,7 +127,7 @@ function Main(props) {
           'https://api.themoviedb.org/3/tv/popular',
           {
             params: {
-              api_key: process.env.REACT_APP_API_TOKEN,
+              api_key: process.env.REACT_APP_MOVIE_API_KEY,
               language: 'en-US',
               page: 1,
             },
@@ -146,7 +146,7 @@ function Main(props) {
           'https://api.themoviedb.org/3/movie/popular',
           {
             params: {
-              api_key: process.env.REACT_APP_API_TOKEN,
+              api_key: process.env.REACT_APP_MOVIE_API_KEY,
               language: 'en-US',
               page: 1,
             },

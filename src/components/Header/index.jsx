@@ -73,7 +73,7 @@ function Header(props) {
         'https://api.themoviedb.org/3/search/multi',
         {
           params: {
-            api_key: process.env.REACT_APP_API_TOKEN,
+            api_key: process.env.REACT_APP_MOVIE_API_KEY,
             query,
           },
         },
