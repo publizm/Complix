@@ -25,20 +25,7 @@ const MediaSection = ({ title, mediaItems, category, selectCategory }) => {
     <MediaSectionBlock>
       <h2>{title}</h2>
       <MediaSlider mediaItems={mediaItems} category={category} />
-      {title === selectCategory && (
-        <ItemDetail
-        // title={
-        //   selectedPopularMovie.original_name ||
-        //   selectedPopularMovie.original_title ||
-        //   selectedPopularMovie.title
-        // }
-        // average={selectedPopularMovie.vote_average}
-        // release={selectedPopularMovie.release_date}
-        // overview={selectedPopularMovie.overview}
-        // bgUrl={selectedPopularMovie.backdrop_path}
-        // onReset={onReset}
-        />
-      )}
+      {category === selectCategory && <ItemDetail />}
     </MediaSectionBlock>
   );
 };

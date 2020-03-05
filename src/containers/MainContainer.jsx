@@ -9,6 +9,7 @@ export default connect(
     trending: state.media.trending,
     popularTv: state.media.popularTv,
     popularMovie: state.media.popularMovie,
+    selectCategory: state.media.selected.category,
   }),
   dispatch => ({
     getMainMedia: () => {

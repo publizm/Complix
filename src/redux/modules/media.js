@@ -9,6 +9,10 @@ const options = {
 const initialState = {
   loading: false,
   error: null,
+  selected: {
+    selectId: null,
+    selectCategory: null,
+  },
 };
 
 const { success, pending, fail } = createActions(
@@ -112,17 +116,19 @@ function* getMainMedia() {
 export const selectMediaSaga = createAction('SELECT_MEDIA_SAGA');
 
 function* selectMedia({ payload }) {
-  const prevSelectId = yield select(state => state.media.selectId);
-  const prevSelectCategory = yield select(state => state.media.selectCategory);
-  const { selectId, selectCategory } = payload;
+  const prevSelectId = yield select(state => state.media.selected.id);
+  const prevSelectCategory = yield select(
+    state => state.media.selected.category,
+  );
+  const { id, category } = payload;
 
   try {
     yield put(pending());
 
-    if (prevSelectId === selectId && prevSelectCategory === selectCategory) {
-      yield put(success({ selectId: null, selectCategory: null }));
+    if (prevSelectId === id && prevSelectCategory === category) {
+      yield put(success({ selected: { id: null, category: null } }));
     } else {
-      yield put(success({ ...payload }));
+      yield put(success({ selected: { ...payload } }));
     }
   } catch (error) {
     yield put(fail(error));

@@ -55,6 +55,7 @@ const Main = ({
   popularMovie,
   popularTv,
   getMainMedia,
+  selectCategory,
 }) => {
   const [visual, setVisual] = useState({});
   const [query, setQuery] = useState('');
@@ -88,26 +89,31 @@ const Main = ({
           title="New Movies"
           category="newMovie"
           mediaItems={newMovie}
+          selectCategory={selectCategory}
         />
         <MediaSection
           title="New TV Programs"
           category="newTv"
           mediaItems={newTv}
+          selectCategory={selectCategory}
         />
         <MediaSection
           title="Trending"
           category="trending"
           mediaItems={trending}
+          selectCategory={selectCategory}
         />
         <MediaSection
           title="Popular Movies"
           category="popularMovie"
           mediaItems={popularMovie}
+          selectCategory={selectCategory}
         />
         <MediaSection
           title="Popular TV Programs"
           category="popularTv"
           mediaItems={popularTv}
+          selectCategory={selectCategory}
         />
       </div>
     </>

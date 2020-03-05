@@ -49,7 +49,7 @@ const Item = styled.div`
         `}
 `;
 const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
-  const seletedId = useSelector(state => state.media.selectId);
+  const seletedId = useSelector(state => state.media.selected.id);
   const dispatch = useDispatch();
   const [isOver, setIsOver] = useState(false);
   const [isSelect, setIsSelect] = useState(false);
@@ -69,7 +69,7 @@ const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
 
   const onSelect = useCallback(() => {
     console.log(category);
-    dispatch(selectMediaSaga({ selectId: id, selectCategory: category }));
+    dispatch(selectMediaSaga({ id, category }));
     setIsSelect(prev => !prev);
     // if (category === 'newMovies') {
     //   const [_selectedMovie] = newMovies.filter(movie => movie.id === id);
