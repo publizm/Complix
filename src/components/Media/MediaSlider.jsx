@@ -32,15 +32,16 @@ const settings = {
 const MediaSlider = ({ mediaItems }) => {
   return (
     <Slider {...settings}>
-      {mediaItems.map(media => (
-        <MediaItem
-          key={uuid.v4()}
-          id={media.id}
-          title={media.title}
-          posterUrl={`https://image.tmdb.org/t/p/w500/${media.poster_path}`}
-          category={'popularMovie'}
-        />
-      ))}
+      {mediaItems &&
+        mediaItems.map(media => (
+          <MediaItem
+            key={uuid.v4()}
+            id={media.id}
+            title={media.title}
+            posterUrl={`https://image.tmdb.org/t/p/w500/${media.poster_path}`}
+            category={'popularMovie'}
+          />
+        ))}
     </Slider>
   );
 };

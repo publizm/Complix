@@ -6,6 +6,7 @@ import media from './media';
 const reducer = history =>
   combineReducers({
     auth,
+    media,
     router: connectRouter(history),
   });
 
