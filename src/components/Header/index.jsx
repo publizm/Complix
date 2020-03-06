@@ -120,7 +120,6 @@ const Header = () => {
   }, 800);
 
   useEffect(() => {
-    console.log();
     if (history.location.pathname === '/result') {
       const { search: query } = qs.parse(history.location.search);
 
@@ -128,7 +127,7 @@ const Header = () => {
 
       dispatch(searchMediaSaga(query));
     }
-  }, [dispatch, history]);
+  }, [dispatch, history.location.pathname, history.location.search]);
 
   const handleSearch = () => {
     setSearchOpen(prevOpen => !prevOpen);

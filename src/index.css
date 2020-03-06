@@ -188,3 +188,7 @@ a:focus {
 	padding: 0 0 50px;
 }
 
+#modal {
+	position: relative;
+	z-index: 101;
+}

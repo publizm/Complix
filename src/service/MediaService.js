@@ -50,7 +50,6 @@ export default class MediaService {
   };
 
   static searchMedia = async ({ query, page }) => {
-    console.log('service', query, page);
     return await axios.get('https://api.themoviedb.org/3/search/multi', {
       params: {
         api_key: process.env.REACT_APP_MOVIE_API_KEY,

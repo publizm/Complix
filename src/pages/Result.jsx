@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
 import media from '../libs/MediaQuery';
 import uuid from 'uuid';
 import Header from '../components/Header';
+import MediaDetailPopup from '../components/Media/MediaDetailPopup';
 
 const ResultListArea = styled.section`
   display: flex;
@@ -69,10 +70,24 @@ const Empty = styled.div`
   align-self: center;
 `;
 
-const Result = ({ query, searchList, pageIndex, searchMedia }) => {
-  const addDefaultSrc = e => {
+const Result = React.memo(({ query, searchList, pageIndex, searchMedia }) => {
+  const [detailVisible, setDetailVisible] = useState(false);
+  const [detailInfo, setDetailInfo] = useState(null);
+
+  const addDefaultSrc = useCallback(e => {
     e.target.src = '/images/no-image.png';
-  };
+  }, []);
+
+  const showDetail = useCallback(list => {
+    setDetailVisible(true);
+    setDetailInfo(list);
+  }, []);
+
+  const hideDetail = useCallback(() => {
+    setDetailVisible(false);
+    setDetailInfo(null);
+  }, []);
+
   return (
     <>
       <Header />
@@ -81,7 +96,7 @@ const Result = ({ query, searchList, pageIndex, searchMedia }) => {
           {searchList && searchList.length > 0 && (
             <ResultList>
               {searchList.map(list => (
-                <ResultItem key={uuid.v4()}>
+                <ResultItem key={uuid.v4()} onClick={() => showDetail(list)}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
                     alt={list.title}
@@ -103,9 +118,16 @@ const Result = ({ query, searchList, pageIndex, searchMedia }) => {
             <Empty>해당하는 검색결과를 찾지 못했습니다.</Empty>
           )}
         </ResultListArea>
+        {detailInfo && (
+          <MediaDetailPopup
+            visible={detailVisible}
+            hide={hideDetail}
+            info={detailInfo}
+          />
+        )}
       </div>
     </>
   );
-};
+});
 
 export default Result;

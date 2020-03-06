@@ -153,8 +153,6 @@ function* selectMedia({ payload }) {
 export const searchMediaSaga = createAction('SEARCH_MEDIA_SAGA');
 
 function* searchMedia({ payload }) {
-  console.log('searchMedia', payload);
-
   try {
     yield put(pending());
 
@@ -167,51 +165,22 @@ function* searchMedia({ payload }) {
       page: 1,
     });
 
+    const filterResult = results.filter(
+      result => result.poster_path && result.backdrop_path,
+    );
+
     yield put(
       success({
         searched: {
           query: payload,
           page: page === total_pages ? 'lastIndex' : 1,
           total_pages,
-          results,
+          results: filterResult,
         },
       }),
     );
   } catch (error) {
     yield put(fail(error));
-    console.log(error);
-  }
-}
-
-export const renderSearchSaga = createAction('RENDER_SEARCH_SAGA');
-
-function* renderSearchList({ payload }) {
-  const prevResults = yield select(state => state.media.searched.results);
-  const prevPageIndex = yield select(state => state.media.searched.page);
-  const maxPageIndex = yield select(state => state.media.searched.total_pages);
-
-  const {
-    data: { page, total_pages, results },
-  } = yield call(MediaService.searchMedia, {
-    query: payload,
-    page: prevPageIndex + 1,
-  });
-
-  try {
-    yield put(pending());
-    yield put(
-      success({
-        searched: {
-          query: payload,
-          page: prevPageIndex <= maxPageIndex ? prevPageIndex + 1 : 'lastIndex',
-          total_pages,
-          results: [prevResults, ...results],
-        },
-      }),
-    );
-  } catch (error) {
-    yield put(fail(error));
-    console.log(error);
   }
 }
 
@@ -219,7 +188,6 @@ export function* mediaSaga() {
   yield takeLatest('GET_MAIN_MEDIA_SAGA', getMainMedia);
   yield takeLatest('SELECT_MEDIA_SAGA', selectMedia);
   yield takeLatest('SEARCH_MEDIA_SAGA', searchMedia);
-  yield takeLatest('RENDER_SEARCH_SAGA', renderSearchList);
 }
 
 export default media;
