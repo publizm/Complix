@@ -9,18 +9,13 @@
 5. styled-components 모듈을 이용한 컴포넌트 스타일링
 6. axios 모듈을 이용한 비동기 통신 및 후속 처리
 
-### 구현 기능 (Must)
+### 구현 기능
 - 로그인 페이지 (로컬 스토리지의 token 값을 활용)
 - 메인 페이지 (신규 TV & 영화, 인기 TV & 영화 등 컨텐츠 정보 제공)
   - 컨텐츠 선택시 해당 컨텐츠 상세 정보 표시
-- TV 프로그램 페이지 (메인 페이지의 컨텐츠 중 카테고리가 TV인 컨텐츠 정보 제공)
-  - 컨텐츠 선택시 해당 컨텐츠 상세 정보 표시
-- 영화 페이지 (메인 페이지의 컨텐츠 중 카테고리가 영화인 컨텐츠 정보 제공)
-  - 컨텐츠 선택시 해당 컨텐츠 상세 정보 표시
-
-### 구현 기능 (Optional)
-- 내가 찜한 컨텐츠 (실제 [the Movie DB](https://www.themoviedb.org/) 사이트의 회원정보에 해당 컨텐츠를 등록)
-- 컨텐츠 선택시 해당 컨텐츠를 내가 찜한 컨텐츠에 추가할 수 있는 버튼
+- 검색 구현
+- 검색 결과 페이지
+  - 해당 컨텐츠 클릭스 팝업 노출
 
 ### 사용 API
 [The Movie DB](https://developers.themoviedb.org/3) API를 사용하여 신규 TV & 영화, 인기 TV & 영화, 지금 뜨는 컨텐츠에 대한 정보 제공.
@@ -39,10 +34,15 @@
 - query-string
 - redux
 - react-redux
+- redux-saga
+- redux-actions
 - react-error-boundary
 - react-horizontal-scrolling-menu
 - uuid
 - loadsh (debounce)
+- react-slick
+- redux-devtools-extension
+- concurrently
 
 ### devDependencies
 - eslint-config-prettier
