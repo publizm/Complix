@@ -18,7 +18,7 @@ const VisualArea = styled.section`
 
   ${media.mobile`
     height: 60vh;
-    padding: 100px 30px 30px;
+    padding: 100px 15px 15px;
   `}
 
   &:after {

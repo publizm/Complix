@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MediaSlider from './MediaSlider';
 import ItemDetail from './ItemDetail';
+import media from '../../libs/MediaQuery';
 
 const MediaSectionBlock = styled.section`
   overflow: hidden;
@@ -10,7 +11,7 @@ const MediaSectionBlock = styled.section`
   color: #fff !important;
 
   h2 {
-    margin: 0 0 30px;
+    padding: 0 30px 30px;
     font-weight: 700;
     font-size: 4rem;
   }
@@ -18,6 +19,14 @@ const MediaSectionBlock = styled.section`
   & + & {
     margin: 100px 0 0;
   }
+
+  ${media.mobile`
+    h2 {
+      padding: 0 15px 15px;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+  `}
 `;
 
 const MediaSection = ({ title, mediaItems, category, selectCategory }) => {

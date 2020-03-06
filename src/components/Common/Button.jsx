@@ -10,10 +10,10 @@ const sizes = {
     borderRadius: '3px',
   },
   medium: {
-    height: '45px',
-    fontSize: '1.6rem',
-    lineHeight: '43px',
-    borderRadius: '7px',
+    height: '40px',
+    fontSize: '1.4rem',
+    lineHeight: '38px',
+    borderRadius: '5px',
   },
   large: {
     height: '50px',
