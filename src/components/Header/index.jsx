@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import media from '../../libs/MediaQuery';
 import Button from '../Common/Button';
 import { debounce } from 'lodash';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import qs from 'query-string';
+import { searchMediaSaga } from '../../redux/modules/media';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -105,27 +107,28 @@ const SearchButton = styled.button`
   }
 `;
 
-function Header(props) {
+const Header = () => {
+  const query = useSelector(state => state.media.searched.query);
+  const dispatch = useDispatch();
   const [searchOpen, setSearchOpen] = useState(false);
   const history = useHistory();
 
-  const handleOnChange = debounce(async query => {
-    if (!query) return;
-    try {
-      const { data } = await axios.get(
-        'https://api.themoviedb.org/3/search/multi',
-        {
-          params: {
-            api_key: process.env.REACT_APP_MOVIE_API_KEY,
-            query,
-          },
-        },
-      );
-      props.onSearch(data.results, query);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleOnChange = debounce(async value => {
+    if (!value || value === query) return;
+
+    dispatch(searchMediaSaga(value));
   }, 800);
+
+  useEffect(() => {
+    console.log();
+    if (history.location.pathname === '/result') {
+      const { search: query } = qs.parse(history.location.search);
+
+      if (query === '') return;
+
+      dispatch(searchMediaSaga(query));
+    }
+  }, [dispatch, history]);
 
   const handleSearch = () => {
     setSearchOpen(prevOpen => !prevOpen);
@@ -142,9 +145,9 @@ function Header(props) {
         <SearchArea>
           <SearchBox searchOpen={searchOpen}>
             <SearchBar
-              type="search"
+              type="text"
               placeholder="Titles, people, genres"
-              defaultValue={props.query}
+              defaultValue={query}
               onChange={({ target }) => {
                 handleOnChange(target.value.trim());
               }}
@@ -176,6 +179,6 @@ function Header(props) {
       </UtillArea>
     </StyledHeader>
   );
-}
+};
 
 export default Header;

@@ -44,7 +44,7 @@ const MediaSlider = React.memo(({ mediaItems, category }) => {
               media.name
             }
             average={media.vote_average}
-            posterUrl={`https://image.tmdb.org/t/p/w500/${media.poster_path}`}
+            posterUrl={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
             category={category}
           />
         ))}
