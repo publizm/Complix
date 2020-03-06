@@ -186,7 +186,7 @@ const ItemDetail = () => {
         <p className="summary">
           <span>
             <i>
-              <img src="/star.png" alt="average_icon" />
+              <img src="/images/star.png" alt="average_icon" />
             </i>
             {average}
           </span>

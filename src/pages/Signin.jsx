@@ -12,7 +12,7 @@ const SignInWrapper = styled.section`
   position: relative;
   min-height: 100vh;
   padding: 20px;
-  background: url('/login_bg.jpg') center center no-repeat;
+  background: url('/images/login_bg.jpg') center center no-repeat;
   background-size: cover;
   font-size: 20px;
 
@@ -63,7 +63,7 @@ const Signin = () => {
   return (
     <SignInWrapper>
       <Logo>
-        <img src="/logo.png" alt="Comflix" />
+        <img src="/images/logo.png" alt="Comflix" />
       </Logo>
       <A11yTitle>로그인 영역</A11yTitle>
       <SigninArea>

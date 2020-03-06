@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from '../../libs/MediaQuery';
 import Button from '../Common/Button';
 import { debounce } from 'lodash';
@@ -42,6 +42,7 @@ const Logo = styled.h1`
   ${media.mobile`
     flex: 1 0 auto;
     max-width: 100px;
+    margin: 0 5px 0 0;
   `}
 `;
 
@@ -58,29 +59,39 @@ const SearchArea = styled.div`
 `;
 
 const SearchBox = styled.div`
-  width: 230px;
-  transform: scaleX(0);
-  opacity: 0;
-  background: #000;
+  overflow: hidden;
+  width: 0;
+  margin: 0 10px 0 0;
+  padding: 0 0 0 20px;
   border: 1px solid #e50914;
+  background: #000 url('/images/search-icon.png') 5px center no-repeat;
+  background-size: 18px;
+  opacity: 0;
+  transform-origin: right center;
+  transition: all 0.3s;
+  transform: scaleX(0);
+
+  ${props =>
+    props.searchOpen &&
+    css`
+      width: 230px;
+      transform: scaleX(1);
+      opacity: 1;
+    `}
 
   ${media.mobile`
     width: auto;
-  `}
+  `};
 `;
 
 const SearchBar = styled.input`
   width: 100%;
-  height: 30px;
-  padding-left: 15px;
+  height: 40px;
+  padding-left: 10px;
+  border: none;
+  font-size: 1.2rem;
   background: none;
-  margin-right: 10px;
-  border-radius: 3px;
   transition: all 0.3s;
-
-  &:focus {
-    border: 1px solid #e50914;
-  }
 `;
 
 const SearchButton = styled.button`
@@ -95,6 +106,7 @@ const SearchButton = styled.button`
 `;
 
 function Header(props) {
+  const [searchOpen, setSearchOpen] = useState(false);
   const history = useHistory();
 
   const handleOnChange = debounce(async query => {
@@ -115,16 +127,20 @@ function Header(props) {
     }
   }, 800);
 
+  const handleSearch = () => {
+    setSearchOpen(prevOpen => !prevOpen);
+  };
+
   return (
     <StyledHeader>
       <Logo>
         <Link to="/">
-          <img src="/logo.png" alt="logo" />
+          <img src="/images/logo.png" alt="logo" />
         </Link>
       </Logo>
       <UtillArea>
         <SearchArea>
-          <SearchBox>
+          <SearchBox searchOpen={searchOpen}>
             <SearchBar
               type="search"
               placeholder="Titles, people, genres"
@@ -134,8 +150,16 @@ function Header(props) {
               }}
             />
           </SearchBox>
-          <SearchButton type="button">
-            <img src="search-icon.png" alt="검색" />
+          <SearchButton
+            type="button"
+            onClick={handleSearch}
+            searchOpen={searchOpen}
+          >
+            {!searchOpen ? (
+              <img src="/images/search-icon.png" alt="검색" />
+            ) : (
+              <img src="/images/close-white-40x40.png" alt="닫기" />
+            )}
           </SearchButton>
         </SearchArea>
         <Button

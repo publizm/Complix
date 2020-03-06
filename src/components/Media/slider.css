@@ -18,13 +18,13 @@
 
 .slick-slider .slick-prev {
 	left: 0;
-	background: rgba(0,0,0,.7) url('/arr-left-white-36x70.png') center center no-repeat;
+	background: rgba(0,0,0,.7) url('/images/arr-left-white-36x70.png') center center no-repeat;
 	background-size: 25px auto;
 }
 
 .slick-slider .slick-next {
 	right: 0;
-	background: rgba(0,0,0,.7) url('/arr-right-white-36x70.png') center center no-repeat;
+	background: rgba(0,0,0,.7) url('/images/arr-right-white-36x70.png') center center no-repeat;
 	background-size: 25px auto;
 }
 

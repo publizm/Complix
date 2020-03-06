@@ -104,7 +104,7 @@ const MediaItem = React.memo(({ average, posterUrl, title, id, category }) => {
         <SummaryTitle>{title}</SummaryTitle>
         <Average>
           <i>
-            <img src="/star.png" alt="average_icon" />
+            <img src="/images/star.png" alt="average_icon" />
           </i>
           {average}
         </Average>
