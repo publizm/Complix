@@ -12,6 +12,7 @@ const initialState = {
   selected: {
     selectId: null,
     selectCategory: null,
+    media: null,
   },
 };
 
@@ -122,13 +123,23 @@ function* selectMedia({ payload }) {
   );
   const { id, category } = payload;
 
+  let datas = null;
+  let media = null;
+
+  if (id && category) {
+    datas = yield select(state => state.media[category]);
+    media = datas.filter(data => data.id === id)[0];
+  }
+
   try {
     yield put(pending());
 
     if (prevSelectId === id && prevSelectCategory === category) {
-      yield put(success({ selected: { id: null, category: null } }));
+      yield put(
+        success({ selected: { id: null, category: null, media: null } }),
+      );
     } else {
-      yield put(success({ selected: { ...payload } }));
+      yield put(success({ selected: { media, ...payload } }));
     }
   } catch (error) {
     yield put(fail(error));

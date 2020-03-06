@@ -16,7 +16,7 @@ const MediaSectionBlock = styled.section`
   }
 
   & + & {
-    margin: 150px 0 0;
+    margin: 100px 0 0;
   }
 `;
 

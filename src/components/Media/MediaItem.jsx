@@ -8,10 +8,13 @@ const Item = styled.div`
   overflow: hidden;
   position: relative;
   border: 2px solid transparent;
+  cursor: pointer;
+
   img {
     width: 100%;
   }
-  p {
+
+  & > div {
     opacity: 0;
     position: absolute;
     top: 0;
@@ -19,7 +22,6 @@ const Item = styled.div`
     bottom: 0;
     left: 0;
     padding: 20px;
-    font-size: 1.6rem;
     background: rgba(0, 0, 0, 0.7);
     transform: translateY(100%);
     transition: all 0.3s;
@@ -28,13 +30,13 @@ const Item = styled.div`
   ${props =>
     props.isOver
       ? css`
-          p {
+          div {
             opacity: 1;
             transform: translateY(0);
           }
         `
       : css`
-          p {
+          div {
             opacity: 0;
           }
         `}
@@ -48,7 +50,24 @@ const Item = styled.div`
           border-color: transparent;
         `}
 `;
-const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
+
+const SummaryTitle = styled.p`
+  font-size: 1.6rem;
+`;
+
+const Average = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 15px 0 0;
+
+  & > i {
+    display: inline-block;
+    width: 30px;
+    margin: 0 10px 0 0;
+  }
+`;
+
+const MediaItem = React.memo(({ average, posterUrl, title, id, category }) => {
   const seletedId = useSelector(state => state.media.selected.id);
   const dispatch = useDispatch();
   const [isOver, setIsOver] = useState(false);
@@ -68,53 +87,8 @@ const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
   }, [id, seletedId]);
 
   const onSelect = useCallback(() => {
-    console.log(category);
     dispatch(selectMediaSaga({ id, category }));
     setIsSelect(prev => !prev);
-    // if (category === 'newMovies') {
-    //   const [_selectedMovie] = newMovies.filter(movie => movie.id === id);
-    //   setSelectedTv(null);
-    //   setSelectedTrending(null);
-    //   setSelectedPopularTv(null);
-    //   setSelectedPopularMovie(null);
-    //   setSelectedMovie(_selectedMovie);
-    // }
-    // if (category === 'newTv') {
-    //   const [_selectedTv] = newTv.filter(tv => tv.id === id);
-    //   setSelectedMovie(null);
-    //   setSelectedTrending(null);
-    //   setSelectedPopularTv(null);
-    //   setSelectedPopularMovie(null);
-    //   setSelectedTv(_selectedTv);
-    // }
-    // if (category === 'trending') {
-    //   const [_selectedTrending] = trending.filter(
-    //     trending => trending.id === id,
-    //   );
-    //   setSelectedMovie(null);
-    //   setSelectedTv(null);
-    //   setSelectedPopularTv(null);
-    //   setSelectedPopularMovie(null);
-    //   setSelectedTrending(_selectedTrending);
-    // }
-    // if (category === 'popularTv') {
-    //   const [_selectedPopularTv] = popularTv.filter(tv => tv.id === id);
-    //   setSelectedMovie(null);
-    //   setSelectedTv(null);
-    //   setSelectedTrending(null);
-    //   setSelectedPopularMovie(null);
-    //   setSelectedPopularTv(_selectedPopularTv);
-    // }
-    // if (category === 'popularMovie') {
-    //   const [_selectedPopularMovie] = popularMovie.filter(
-    //     movie => movie.id === id,
-    //   );
-    //   setSelectedMovie(null);
-    //   setSelectedTv(null);
-    //   setSelectedTrending(null);
-    //   setSelectedPopularTv(null);
-    //   setSelectedPopularMovie(_selectedPopularMovie);
-    // }
   }, [category, dispatch, id]);
 
   return (
@@ -126,7 +100,15 @@ const MediaItem = React.memo(({ posterUrl, title, id, category }) => {
       onMouseLeave={offHover}
     >
       <img src={posterUrl} alt="poster" />
-      <p>{title}</p>
+      <div>
+        <SummaryTitle>{title}</SummaryTitle>
+        <Average>
+          <i>
+            <img src="/star.png" alt="average_icon" />
+          </i>
+          {average}
+        </Average>
+      </div>
     </Item>
   );
 });

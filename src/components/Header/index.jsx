@@ -27,7 +27,7 @@ function Header(props) {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 100;
     width: 100%;
     padding: 15px 30px;
     justify-content: space-between;
@@ -92,11 +92,6 @@ function Header(props) {
             <img src="/logo.png" alt="logo" />
           </Link>
         </Logo>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
       </StyledNav>
       <div>
         <SearchBar

@@ -6,7 +6,7 @@ const slideUp = keyframes`
     transform: translate(-50%, 0);
   }
   50% {
-    transform: translate(-50%, -34px);
+    transform: translate(-50%, -100%);
   }
   100% {
     transform: translate(-50%, 0);
@@ -15,13 +15,13 @@ const slideUp = keyframes`
 
 const slideDown = keyframes`
   0% {
-    transform: translate(-50%, -34px);
+    transform: translate(-50%, -100%);
   }
   50% {
     transform: translate(-50%, 0);
   }
   100% {
-    transform: translate(-50%, -34px);
+    transform: translate(-50%, -100%);
   }
 `;
 
