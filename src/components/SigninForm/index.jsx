@@ -59,7 +59,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
               id="email"
               placeHolder="Enter Your E-mail"
               essential
-              defaultValue="test@test.test"
+              defaultValue="publizm@gmail.com"
             >
               E-MAIL
             </Inputs>
@@ -71,7 +71,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
               id="password"
               placeHolder="Enter Your Password"
               essential
-              defaultValue="test"
+              defaultValue="fcschool"
             >
               PASSWORD
             </Inputs>

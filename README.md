@@ -42,7 +42,6 @@
 - loadsh (debounce)
 - react-slick
 - redux-devtools-extension
-- concurrently
 
 ### devDependencies
 - eslint-config-prettier

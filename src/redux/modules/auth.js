@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { select, put, call, takeLatest } from 'redux-saga/effects';
 import { createAction, createActions, handleActions } from 'redux-actions';
 import AuthService from '../../service/AuthService';
 import { push } from 'connected-react-router';
@@ -11,6 +11,7 @@ const initialState = {
   token: null,
   loading: true,
   error: null,
+  feedMessage: null,
   feedVisible: false,
 };
 
@@ -29,18 +30,21 @@ const auth = handleActions(
       token: state.token ? state.token : null,
       loading: true,
       error: null,
+      feedMessage: null,
       feedVisible: false,
     }),
     SUCCESS: (state, action) => ({
       token: action.payload.token,
       loading: false,
       error: null,
+      feedMessage: null,
       feedVisible: false,
     }),
     FAIL: (state, action) => ({
       token: null,
       loading: false,
       error: action.payload,
+      feedMessage: action.payload.response.data.error,
       feedVisible: true,
     }),
   },
@@ -52,11 +56,9 @@ function* signIn(action) {
   try {
     yield put(pending());
     const res = yield call(AuthService.signIn, action.payload);
-
-    const { access_token } = res.data;
-
-    yield put(success(access_token));
-    localStorage.setItem('token', access_token);
+    const { token } = res.data;
+    yield put(success(token));
+    localStorage.setItem('token', token);
     yield put(push('/'));
   } catch (error) {
     yield put(fail(error));
@@ -64,8 +66,11 @@ function* signIn(action) {
 }
 
 function* signOut() {
+  const token = yield select(state => state.auth.token);
+
   try {
     yield put(pending());
+    yield call(AuthService.signOut, token);
     yield put(success(null));
     localStorage.removeItem('token');
   } catch (error) {

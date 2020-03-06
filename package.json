@@ -7,7 +7,6 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.1",
-    "concurrently": "^5.1.0",
     "connected-react-router": "^6.7.0",
     "lodash": "^4.17.15",
     "polished": "^3.4.2",
@@ -29,7 +28,7 @@
     "uuid": "^3.4.0"
   },
   "scripts": {
-    "start": "concurrently \"cd _server && npm run start-auth\" \"react-scripts start\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
