@@ -44,7 +44,6 @@
 - redux-devtools-extension
 - concurrently
 
-
 ### devDependencies
 - eslint-config-prettier
 - husky
