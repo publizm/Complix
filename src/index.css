@@ -164,38 +164,6 @@ a:focus {
 	color: inherit;
 }
 
-/* 리스트 */
-
-.item-list {
-  margin: -40px 0 0;
-}
-
-.menu-item {
-  width: 250px;
-  margin: 0 20px;
-  user-select: none;
-  cursor: pointer;
-  border: none;
-  opacity: 0.8;
-}
-
-.menu-item img {
-  width: 100%;
-}
-
-/* .menu-item-wrapper.active {
-  border: 1px blue solid;
-} */
-
-/* .menu-item.active {
-  border: 1px green solid;
-} */
-
-.scroll-menu-arrow {
-  padding: 20px;
-  cursor: pointer;
-}
-
 .search-list-section {
 	margin: 0 0 -30px;
 	padding: 60px 0 0;
@@ -218,4 +186,9 @@ a:focus {
 
 .container {
 	padding: 0 0 50px;
+}
+
+#modal {
+	position: relative;
+	z-index: 101;
 }
