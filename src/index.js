@@ -5,7 +5,6 @@ import './index.css';
 import create from './redux/create';
 import { Provider } from 'react-redux';
 
-module.hot.accept();
 const store = create();
 
 ReactDOM.render(
