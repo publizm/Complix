@@ -25,6 +25,7 @@ const ResultItem = styled.li`
   width: 20%;
   height: auto;
   padding: 1%;
+  cursor: pointer;
   img {
     width: 100%;
     height: 100%;
